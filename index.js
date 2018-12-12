@@ -6,18 +6,11 @@ exports.test = (fn, cases) => {
     let success = 0, index = 1
     for(let al of cases) {
         let out = testFn.apply(null, al[0])
-        let paramStr = ''
-        for (let ele of al[0]) {
-            if (paramStr.length > 0) {
-                paramStr += ', '
-            }
-            paramStr += strFormat(ele)
-        }
-        if (out == null && al[1] == null || out != null && al[1] != null && out.toString() === al[1].toString()) {
+        if (checkAnswer(out, al[1])) {
             success++
-            console.log(color.green(`test [${index}] success, Input: ${paramStr}; Expected: ${strFormat(al[1])}; Output: ${strFormat(out)}`))
+            console.log(color.green(`test [${index}] success, Input: (${strFormat(al[0])}); Expected: ${Array.isArray(al[1]) ? `[${strFormat(al[1])}]` : strFormat(al[1])}; Output: ${Array.isArray(out) ? `[${strFormat(out)}]` : strFormat(out)}`))
         } else {
-            console.log(color.red(`test [${index}] fail, Input: ${paramStr}; Expected: ${strFormat(al[1])}; Output: ${strFormat(out)}`))
+            console.log(color.red(`test [${index}] fail, Input: (${strFormat(al[0])}); Expected: ${Array.isArray(al[1]) ? `[${strFormat(al[1])}]` : strFormat(al[1])}; Output: ${Array.isArray(out) ? `[${strFormat(out)}]` : strFormat(out)}`))
         }
         index++
     }
@@ -29,10 +22,31 @@ exports.test = (fn, cases) => {
     console.log(`running ${Date.now() - start} ms`)
 }
 
+function checkAnswer(out, ans) {
+    if( out == null && ans == null) {
+        return true
+    } else if (out != null && ans !== null) {
+        if (Array.isArray(out) && Array.isArray(ans)) {
+            out.sort()
+            ans.sort()
+            return out.toString() === ans.toString()
+        } else if (!Array.isArray(out) && !Array.isArray(ans)) {
+            return out.toString() === ans.toString()
+        } else 
+            return false
+    } else 
+        return false
+}
+
 function strFormat(params) {
     let paramStr = ''
     if (Array.isArray(params)) {
-        paramStr = `[${params}]`
+        params.forEach((al) => {
+            if(Array.isArray(al)) {
+                paramStr += (paramStr.length > 0 ? ',' : '') + `[${al}]`
+            } else
+                paramStr += (paramStr.length > 0 ? ',' : '') + strFormat(al)
+        })
     } else if (typeof params === 'number') {
         paramStr = params && params.toString()
     } else if (typeof params === 'string') {
