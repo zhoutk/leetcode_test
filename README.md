@@ -39,6 +39,10 @@ let cases = [              // [[[],''],],   //first params is empty array
 test(isMatch, cases)
 ```
 
+> notice:
+
+test 2, deliberate error answer, showing failure.
+
 out:
 
 ```
