@@ -10,11 +10,11 @@ exports.test = (fn, cases) => {
             success++
             console.log(color.green(`test [${index}] success, Input: (${strFormat(al[0])}); Expected: ${Array.isArray(al[1]) ? `[${strFormat(al[1])}]` : strFormat(al[1])}; Output: ${Array.isArray(out) ? `[${strFormat(out)}]` : strFormat(out)}`))
         } else {
-            console.log(color.red(`test [${index}] fail, Input: (${strFormat(al[0])}); Expected: ${Array.isArray(al[1]) ? `[${strFormat(al[1])}]` : strFormat(al[1])}; Output: ${Array.isArray(out) ? `[${strFormat(out)}]` : strFormat(out)}`))
+            console.log(color.red(`test [${index}] failure, Input: (${strFormat(al[0])}); Expected: ${Array.isArray(al[1]) ? `[${strFormat(al[1])}]` : strFormat(al[1])}; Output: ${Array.isArray(out) ? `[${strFormat(out)}]` : strFormat(out)}`))
         }
         index++
     }
-    let testResult = `Result: test ${cases.length} cases, success: ${success}, fail: ${cases.length - success}`
+    let testResult = `Result: test ${cases.length} cases, success: ${success}, failure: ${cases.length - success}`
     if(cases.length == success)
         console.log(color.bgGreen(testResult))
     else
