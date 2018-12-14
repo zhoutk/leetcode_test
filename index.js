@@ -27,9 +27,13 @@ function checkAnswer(out, ans) {
         return true
     } else if (out != null && ans !== null) {
         if (Array.isArray(out) && Array.isArray(ans)) {
-            out.sort()
-            ans.sort()
-            return out.toString() === ans.toString()
+            if(out.length !== ans.length)
+                return false
+            else {
+                out.sort()
+                ans.sort()
+                return out.toString() === ans.toString()
+            }
         } else if (!Array.isArray(out) && !Array.isArray(ans)) {
             return out.toString() === ans.toString()
         } else 
