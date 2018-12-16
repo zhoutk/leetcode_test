@@ -8,8 +8,8 @@ npm i leetcode_test
 
 ## example how to use
 
-- [example 1 (question 010)](#example 1 (question 010))
-    deliberate error answer, showing failure.
+- [example 1](#example 1)  
+    deliberate error answer, showing failure.  
 - [example 2 (question 015)](#example 1 (question 015))
     though answer's sequence is different, but judgement is right.
 - [example 3 (question 957)](#example 1 (question 957))
