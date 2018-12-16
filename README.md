@@ -6,6 +6,15 @@ A easy case test tool for leetcode.
 
 npm i leetcode_test
 
+## example how to use
+
+- [example 1 (question 010)](#example 1 (question 010))
+    deliberate error answer, showing failure.
+- [example 2 (question 015)](#example 1 (question 015))
+    though answer's sequence is different, but judgement is right.
+- [example 3 (question 957)](#example 1 (question 957))
+    Add cases' third params to decides whether to sort or no, when result is array.
+    
 ## example 1 (question 010)
 
 codes:
@@ -125,4 +134,74 @@ test [8] success, Input: ([-4,-1,-1,0,1,2]); Expected: [[-1,-1,2],[-1,0,1]]; Out
 test [9] success, Input: ([-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6]); Expected: [[-2,-2,4],[-2,0,2],[-4,-2,6],[-4,0,4],[-4,1,3],[-4,2,2]]; Output: [[-2,-2,4],[-2,0,2],[-4,-2,6],[-4,0,4],[-4,1,3],[-4,2,2]]
 test [10] success, Input: ([-5,-5,-4,-4,-4,-2,-2,-2,0,0,0,1,1,3,4,4]); Expected: [[-2,-2,4],[-2,1,1],[-4,0,4],[-4,1,3],[-5,1,4],[0,0,0]]; Output: [[-2,-2,4],[-2,1,1],[-4,0,4],[-4,1,3],[-5,1,4],[0,0,0]]
 Result: test 10 cases, success: 10, fail: 0
+```
+
+## example 2 (question 957)
+
+codes:
+
+```
+/**
+ * @param {number[]} cells
+ * @param {number} N
+ * @return {number[]}
+ */
+var prisonAfterNDays = function (cells, N) {
+    let len = cells.length, k = 0
+    let obj = Object.create(null)
+    if (len === 8 && N >= 1 && N <= Math.pow(10, 9)) {
+        while (k <  N) {
+            let newKey = [cells.join('')]
+            if (obj[newKey]) {
+                // console.log(`key: ${newKey} --- value: ${k} --- old value: ${obj[newKey]}`)
+                let z = (N - obj[newKey]) % (k - obj[newKey])
+                for (let al of Object.entries(obj)) {
+                    if(al[1] === z + obj[newKey]){
+                        return al[0].split('').reduce((total, a) => {
+                            return total.concat(parseInt(a))
+                        }, [])
+                    }
+                }
+            } else {
+                obj[newKey] = k
+            }
+            
+            let pre = cells[0]
+            cells[0] = 0
+            for (let i = 1; i < len - 1; i++) {
+                let cur = cells[i]
+                cells[i] = pre === cells[i + 1] ? 1 : 0
+                pre = cur
+            }
+            cells[len - 1] = 0
+
+            k++
+        }
+        return cells
+    } else {
+        return null
+    }
+};
+
+let cases = [               // [['', ''], ],
+[[[1, 1, 0, 1, 1, 0, 1, 1],6],[0,0,1,0,0,1,0,0],false],
+[[[1,0,0,1,0,0,1,0],1000000000], [0,0,1,1,1,1,1,0],false],
+[[[1, 1, 0, 1, 1, 0, 0, 0],1],[0,0,1,0,0,0,1,0],false],
+[[[0,1,0,1,1,0,0,1],7], [0, 0, 1, 1, 0, 0, 0, 0],false],
+]
+test(prisonAfterNDays, cases)
+```
+
+> notice:
+
+Add cases' third params to decides whether to sort or no, when result is array.
+
+out:
+
+```
+test [1] success, Input: ([0,0,1,0,0,1,0,0],6); Expected: [0,0,1,0,0,1,0,0]; Output: [0,0,1,0,0,1,0,0]
+test [2] success, Input: ([0,0,0,1,0,0,1,0],1000000000); Expected: [0,0,1,1,1,1,1,0]; Output: [0,0,1,1,1,1,1,0]
+test [3] success, Input: ([0,0,1,0,0,0,1,0],1); Expected: [0,0,1,0,0,0,1,0]; Output: [0,0,1,0,0,0,1,0]
+test [4] success, Input: ([0,0,1,1,0,0,0,0],7); Expected: [0,0,1,1,0,0,0,0]; Output: [0,0,1,1,0,0,0,0]
+Result: test 4 cases, success: 4, failure: 0
 ```
