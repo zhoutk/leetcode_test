@@ -6,7 +6,8 @@ exports.test = (fn, cases) => {
     let success = 0, index = 1
     for(let al of cases) {
         let out = testFn.apply(null, al[0])
-        if (checkAnswer(out, al[1])) {
+        let sort = al[2] === undefined ? true : al[2]
+        if (checkAnswer(out, al[1], sort)) {
             success++
             console.log(color.green(`test [${index}] success, Input: (${strFormat(al[0])}); Expected: ${Array.isArray(al[1]) ? `[${strFormat(al[1])}]` : strFormat(al[1])}; Output: ${Array.isArray(out) ? `[${strFormat(out)}]` : strFormat(out)}`))
         } else {
@@ -22,7 +23,7 @@ exports.test = (fn, cases) => {
     console.log(`running ${Date.now() - start} ms`)
 }
 
-function checkAnswer(out, ans) {
+function checkAnswer(out, ans, sort = true) {
     if( out == null && ans == null) {
         return true
     } else if (out != null && ans !== null) {
@@ -30,8 +31,10 @@ function checkAnswer(out, ans) {
             if(out.length !== ans.length)
                 return false
             else {
-                out.sort()
-                ans.sort()
+                if (sort) {
+                    out.sort()
+                    ans.sort()
+                }
                 return out.toString() === ans.toString()
             }
         } else if (!Array.isArray(out) && !Array.isArray(ans)) {
