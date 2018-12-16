@@ -8,14 +8,14 @@ npm i leetcode_test
 
 ## example how to use
 
-- [example 1](#example 1)  
+- [example 1](example_1_question_010)  
     deliberate error answer, showing failure.  
 - [example 2 (question 015)](#example 1 (question 015))
     though answer's sequence is different, but judgement is right.
 - [example 3 (question 957)](#example 1 (question 957))
     Add cases' third params to decides whether to sort or no, when result is array.
     
-## example 1 (question 010)
+## example_1_question_010
 
 codes:
 
