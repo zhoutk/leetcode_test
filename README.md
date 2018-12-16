@@ -8,12 +8,12 @@ npm i leetcode_test
 
 ## example how to use
 
-- [example 1](#example_1_question_010)  
+- [example 1 question 010](#example_1_question_010)  
     deliberate error answer, showing failure.  
-- [example 2 (question 015)](#example 1 (question 015))
-    though answer's sequence is different, but judgement is right.
-- [example 3 (question 957)](#example 1 (question 957))
-    Add cases' third params to decides whether to sort or no, when result is array.
+- [example 2 question 015](#example_2_question_015)  
+    though answer's sequence is different, but judgement is right.  
+- [example 3 question 957](#example_3_question_957)  
+    Add cases' third params to decides whether to sort or no, when result is array.  
     
 ## example_1_question_010
 
@@ -62,7 +62,7 @@ Result: test 3 cases, success: 2, fail: 1
 running 5 ms
 ```
 
-## example 2 (question 015)
+## example_2_question_015
 
 codes:
 
@@ -136,7 +136,7 @@ test [10] success, Input: ([-5,-5,-4,-4,-4,-2,-2,-2,0,0,0,1,1,3,4,4]); Expected:
 Result: test 10 cases, success: 10, fail: 0
 ```
 
-## example 2 (question 957)
+## example_3_question_957
 
 codes:
 
